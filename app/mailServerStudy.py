@@ -35,25 +35,6 @@ curPath = os.path.split(os.path.realpath(__file__))[0]
 app.logger.info('email server start.')
 
 
-def make_celery(app):
-    celeryIn = Celery(app.import_name)
-    celeryIn.config_from_object('celeryconfig')
-    celeryIn.conf.update(app.config)
-    TaskBase = celeryIn.Task
-
-    class ContextTask(TaskBase):
-        abstract = True
-
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return TaskBase.__call__(self, *args, **kwargs)
-
-    celeryIn.Task = ContextTask
-    return celeryIn
-
-
-# celery = make_celery(app)
-
 celery = Celery(app.import_name)
 celery.config_from_object('celeryconfig')
 celery.conf.update(app.config)
