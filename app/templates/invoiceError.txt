@@ -1,0 +1,5 @@
+尊敬的用户，您好:
+
+很抱歉的通知您，您{{tempDict.applicationTime}}申请的电子发票未能开具成功，申请单号{{tempDict.applicationId}}请您尽快联系商家核实原因或致电4006555666
+
+新大陆电子发票服务
