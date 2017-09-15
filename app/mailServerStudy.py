@@ -111,6 +111,14 @@ def send_async_email(self, msgJson):
                         name = make_header([(f['dealFileName'], 'utf8')]).encode('utf8')
                         msg.attach(filename=name, data=fp.read(),
                                    content_type='application/octet-stream', disposition='attachment')
+            # add html content png
+            SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+            imgPath = os.path.join(SITE_ROOT, "templates", "invoice.png")
+
+            with open(imgPath, 'rb') as fp:
+                msg.attach(filename=imgPath, data=fp.read(),
+                           content_type='application/octet-stream', disposition='inline',
+                           headers=[('Content-ID', 'invoice')])
             try:
                 app.logger.info('before send mail')
                 mail.send(msg)
